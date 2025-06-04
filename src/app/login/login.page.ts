@@ -12,6 +12,8 @@ import {
   IonInput
 } from '@ionic/angular/standalone';
 
+import { NavController } from '@ionic/angular';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -32,8 +34,11 @@ import {
 })
 export class LoginPage implements OnInit {
 
-  constructor() { }
+  constructor(private navCtrl: NavController) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
+  goBack() {
+    this.navCtrl.navigateBack('/home');
+  }
 }
