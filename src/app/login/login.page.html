@@ -1,11 +1,9 @@
 <ion-header collapse="condense" class="hidden-header"></ion-header>
 
 <ion-content class="ion-padding">
-  <ion-buttons slot="start" class="back-button">
-    <ion-button routerLink="/home" fill="clear">
-      <ion-icon name="arrow-back-outline"></ion-icon>
-    </ion-button>
-  </ion-buttons>
+  <div class="manual-back-button" (click)="goBack()">
+    <ion-icon name="arrow-back-outline">←</ion-icon>
+  </div>
 
   <div class="login-container">
     <h2><strong>Acesse sua conta</strong></h2>
@@ -17,7 +15,7 @@
     <ion-button expand="block" shape="round" class="ion-margin-top">Continue</ion-button>
 
     <div class="forgot-password">
-      <a href="#">Esqueci minha senha</a>
+      <a href="javascript:void(0)">Esqueci minha senha</a>
     </div>
 
     <div class="divider">
@@ -36,7 +34,8 @@
 
     <p class="termos">
       Ao clicar em continuar, você concorda com nossos
-      <a href="#">Termos de Serviço</a> e <a href="#">Política de Privacidade</a>
+      <a href="javascript:void(0)">Termos de Serviço</a> e 
+      <a href="javascript:void(0)">Política de Privacidade</a>
     </p>
   </div>
 </ion-content>
