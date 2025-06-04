@@ -1,0 +1,92 @@
+.login-container {
+  text-align: center;
+  color: white;
+
+  h2 {
+    margin-top: 40px;
+    font-size: 1.2em;
+  }
+
+  p {
+    margin: 10px 0 20px;
+    font-size: 0.9em;
+  }
+
+  .forgot-password {
+    margin-top: 10px;
+    font-size: 0.85em;
+
+    a {
+      color: #8ab4f8;
+      text-decoration: none;
+    }
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+
+    hr {
+      flex: 1;
+      border: none;
+      border-top: 1px solid #999;
+    }
+
+    span {
+      margin: 0 10px;
+      color: #999;
+      font-size: 0.85em;
+    }
+  }
+
+  .termos {
+    font-size: 0.7em;
+    color: #ccc;
+    margin-top: 25px;
+
+    a {
+      color: #8ab4f8;
+      text-decoration: none;
+    }
+  }
+}
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+ion-content {
+  --background: #000; /* força o fundo preto */
+  background: #000 !important;
+  color: #fff;
+}
+
+.hidden-header {
+  display: none;
+}
+
+.back-button {
+  position: absolute;
+  top: 16px;
+  left: 8px;
+  z-index: 10;
+  color: white;
+}
+
+ion-input {
+  --background: #fff;
+  --color: #000;
+  --placeholder-color: #666;
+  border-radius: 8px;
+}
+
+ion-button {
+  --background: #fff;
+  --color: #000;
+  border-radius: 20px;
+  font-weight: bold;
+}
+

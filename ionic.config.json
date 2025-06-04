@@ -1,0 +1,7 @@
+{
+  "name": "Re-Cine",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
