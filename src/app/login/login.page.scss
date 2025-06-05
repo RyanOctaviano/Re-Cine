@@ -14,72 +14,78 @@ ion-content {
 }
 
 .manual-back-button {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  z-index: 10;
-  color: white;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-
-  ion-iocn {
-    font-size: 24px;
-    color: white;
+  position: fixed !important;
+  top: 50px !important;
+  left: 20px !important;
+  z-index: 9999 !important;
+  background: rgba(255, 255, 255, 0.3) !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  font-size: 18px !important; // tamanho da seta
+  font-weight: bold !important;
+  color: #fff !important;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.5) !important;
+    transform: scale(1.1) !important;
   }
 }
-
+  
 .login-container {
   text-align: center;
   color: white;
   padding-top: 60px;
-
+  
   h2 {
     margin-top: 40px;
     font-size: 1.2em;
   }
-
+  
   p {
     margin: 10px 0 20px;
     font-size: 0.9em;
   }
-
+  
   .forgot-password {
     margin-top: 10px;
     font-size: 0.85em;
-
+    
     a {
       color: #8ab4f8;
       text-decoration: none;
     }
   }
-
+  
   .divider {
     display: flex;
     align-items: center;
     text-align: center;
     margin: 20px 0;
-
+    
     hr {
       flex: 1;
       border: none;
       border-top: 1px solid #999;
     }
-
+    
     span {
       margin: 0 10px;
       color: #999;
       font-size: 0.85em;
     }
   }
-
+  
   .termos {
     font-size: 0.7em;
     color: #ccc;
     margin-top: 25px;
-
+    
     a {
       color: #8ab4f8;
       text-decoration: none;
