@@ -1,18 +1,21 @@
-<ion-header collapse="condense" class="hidden-header"></ion-header>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content class="ion-padding">
-  <div class="manual-back-button" (click)="goBack()">
-      ◀
-  </div>
 
   <div class="login-container">
     <h2><strong>Acesse sua conta</strong></h2>
     <p>Digite seu e-mail para entrar neste aplicativo</p>
 
-    <ion-input type="email" placeholder="Email@" fill="outline"></ion-input>
-    <ion-input type="password" placeholder="Senha" fill="outline" class="ion-margin-top"></ion-input>
+    <ion-input type="email" placeholder="Email@" fill="outline" [(ngModel)]="email"></ion-input>
+    <ion-input type="password" placeholder="Senha" fill="outline" class="ion-margin-top" [(ngModel)]="senha"></ion-input>
 
-    <ion-button expand="block" shape="round" class="ion-margin-top">Continue</ion-button>
+    <ion-button expand="block" shape="round" class="ion-margin-top" (click)="fazerLogin()">Continue</ion-button>
 
     <div class="forgot-password">
       <a href="javascript:void(0)">Esqueci minha senha</a>
@@ -22,12 +25,12 @@
       <hr /><span>ou</span><hr />
     </div>
 
-    <ion-button expand="block" shape="round" color="light">
+    <ion-button expand="block" shape="round" color="light" (click)="loginComGoogle()">
       <ion-icon slot="start" name="logo-google"></ion-icon>
       Continue com Google
     </ion-button>
 
-    <ion-button expand="block" shape="round" color="light" class="ion-margin-top">
+    <ion-button expand="block" shape="round" color="light" class="ion-margin-top" (click)="loginComApple()">
       <ion-icon slot="start" name="logo-apple"></ion-icon>
       Continue com Apple
     </ion-button>

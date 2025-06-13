@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="tela-cadastro" fullscreen>
+  <div class="logo-box">
+    <img src="assets\img\popcorn.png" alt="logo" class="logo" />
+    <h1>Re-Cine</h1>
+    <p>🎬 Conheça os filmes por dentro antes de apertar o play.</p>
+    <p>Cadastre-se para ver além da superfície.</p>
+  </div>
+
+  <form (ngSubmit)="cadastrar()">
+    <ion-item>
+      <ion-input placeholder="Nome" [(ngModel)]="cadastro.nome" name="nome"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Sobrenome" [(ngModel)]="cadastro.sobrenome" name="sobrenome"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="email" placeholder="Email" [(ngModel)]="cadastro.email" name="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="password" placeholder="Senha" [(ngModel)]="cadastro.senha" name="senha"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="password" placeholder="Confirme sua senha" [(ngModel)]="cadastro.confirmarSenha" name="confirmarSenha"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" class="botao-avancar">Avançar</ion-button>
+  </form>
+</ion-content>

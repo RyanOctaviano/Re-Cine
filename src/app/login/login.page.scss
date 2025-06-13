@@ -9,34 +9,21 @@ ion-content {
   color: #fff;
 }
 
-.hidden-header {
-  display: none;
-}
-
-.manual-back-button {
-  position: fixed !important;
-  top: 50px !important;
-  left: 20px !important;
-  z-index: 9999 !important;
-  background: rgba(255, 255, 255, 0.3) !important;
-  width: 40px !important;
-  height: 40px !important;
-  border-radius: 50% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  cursor: pointer !important;
-  transition: all 0.3s ease !important;
-  font-size: 18px !important; // tamanho da seta
-  font-weight: bold !important;
-  color: #fff !important;
+ion-header {
+  --background: #000; /* remove a barra cinza */
+  background: #000 !important;
+  padding-top: 20px; /* espaço para a barra de notificação */
   
-  &:hover {
-    background: rgba(255, 255, 255, 0.5) !important;
-    transform: scale(1.1) !important;
+  ion-toolbar {
+    --background: #000;
+    --color: #fff;
+    
+    ion-back-button {
+      --color: #fff;
+    }
   }
 }
-  
+
 .login-container {
   text-align: center;
   color: white;
@@ -102,8 +89,8 @@ ion-input {
 }
 
 ion-button {
-  --background: #fff;
-  --color: #000;
+  --background: #007bff; /* azul */
+  --color: #fff; /* texto branco */
   border-radius: 20px;
   font-weight: bold;
 }

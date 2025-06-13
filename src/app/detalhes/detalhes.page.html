@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/principal"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalhes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="movie-banner">
+    <div class="movie-poster">
+      <span>Poster do Filme</span>
+    </div>
+  </div>
+  
+  <div class="movie-info">
+    <h1 class="movie-title">{{ filme.titulo }}</h1>
+        
+    <div class="movie-meta">
+      <span>{{ filme.ano }}</span>
+      <span>•</span>
+      <span>{{ filme.duracao }}</span>
+      <span>•</span>
+      <div class="rating">
+        <span class="star">★</span>
+        <span>{{ filme.rating }}</span>
+      </div>
+    </div>
+    
+    <div class="genres">
+      <span class="genre-tag" *ngFor="let genero of filme.generos">{{ genero }}</span>
+    </div>
+    
+    <div class="action-buttons">
+      <button class="btn-favorito" (click)="toggleFavorito()">
+        <div class="heart-icon" [class.favorito]="isFavorito">
+          {{ isFavorito ? '❤️' : '🤍' }}
+        </div>
+      </button>
+    </div>
+    
+    <div class="section">
+      <h2 class="section-title">Sinopse</h2>
+      <p class="synopsis">{{ filme.sinopse }}</p>
+    </div>
+    
+    <div class="section">
+      <h2 class="section-title">Elenco Principal</h2>
+      <div class="cast-list">
+        <div class="cast-item" *ngFor="let ator of filme.elenco">
+          <div class="cast-photo">{{ getInitials(ator.nome) }}</div>
+          <div class="cast-name">{{ ator.nome }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

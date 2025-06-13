@@ -1,0 +1,109 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <!-- Botões do lado esquerdo -->
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="abrirMenu()">
+        <ion-icon name="menu" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <!-- Nova barra de pesquisa embutida sem botão de fechar -->
+    <ion-item class="search-item" [hidden]="!buscaAtiva">
+      <ion-input placeholder="Buscar filmes e séries..." [(ngModel)]="termoBusca" (ionInput)="buscarFilmes($event)" [clearInput]="termoBusca.length > 0" debounce="300"></ion-input>
+    </ion-item>
+
+    <!-- Botão para ativar/desativar busca -->
+    <ion-buttons slot="end" *ngIf="!buscaAtiva">
+      <ion-button fill="clear" (click)="abrirBusca()">
+        <ion-icon name="search" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Seção de branding do aplicativo -->
+  <div class="app-branding">
+    <div class="brand-logo">
+      <img src="assets/img/popcorn.png" alt="Re-Cine Logo" />
+    </div>
+    <div class="brand-name">Re-Cine</div>
+  </div>
+
+  <!-- Seção de categorias -->
+  <div class="categories-section">
+    <div class="categories-scroll">
+      <ion-chip
+        *ngFor="let categoria of categorias"
+        [class.active]="categoria.ativo"
+        (click)="selecionarCategoria(categoria)"
+      >
+        {{ categoria.nome }}
+      </ion-chip>
+    </div>
+  </div>
+
+  <!-- Seção de filmes -->
+  <div class="movies-section">
+    <h2 class="section-title">{{ categoriaAtual }}</h2>
+    <div class="movies-grid">
+      <div
+        class="movie-card"
+        *ngFor="let filme of filmesFiltrados"
+        (click)="abrirDetalhes(filme.id)"
+      >
+        <div class="movie-poster">
+          <div class="poster-placeholder">
+            <ion-icon name="film-outline"></ion-icon>
+          </div>
+          <div class="movie-overlay">
+            <ion-button fill="clear" class="play-btn">
+              <ion-icon name="play" color="light"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+
+        <div class="movie-info">
+          <h3 class="movie-title">{{ filme.titulo }}</h3>
+          <div class="movie-meta">
+            <div class="rating">
+              <ion-icon name="star" color="warning"></ion-icon>
+              <span>{{ filme.rating }}</span>
+            </div>
+            <span class="year">{{ filme.ano }}</span>
+          </div>
+        </div>
+
+        <button class="favorite-btn" (click)="toggleFavorito(filme, $event)">
+          <span class="heart-icon" [class.favorito]="filme.favorito">
+            {{ filme.favorito ? '❤️' : '🤍' }}
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seção de carregamento -->
+  <div class="loading-section" *ngIf="carregando">
+    <ion-spinner color="primary"></ion-spinner>
+    <p>Carregando mais filmes...</p>
+  </div>
+</ion-content>
+
+<!-- Barra de navegação inferior -->
+<ion-tab-bar slot="bottom">
+  <ion-tab-button (click)="irParaFavoritos()">
+    <ion-icon name="heart-outline"></ion-icon>
+    <ion-label>Favoritos</ion-label>
+  </ion-tab-button>
+
+  <ion-tab-button class="active">
+    <ion-icon name="home"></ion-icon>
+    <ion-label>Home</ion-label>
+  </ion-tab-button>
+
+  <ion-tab-button (click)="irParaPerfil()">
+    <ion-icon name="person-outline"></ion-icon>
+    <ion-label>Perfil</ion-label>
+  </ion-tab-button>
+</ion-tab-bar>
