@@ -17,11 +17,15 @@ ion-header {
   border-bottom: 1px solid rgba(255,255,255,0.1);
   position: relative;
   z-index: 10;
+  // Adicionando padding para safe area
+  padding-top: env(safe-area-inset-top);
   
   ion-toolbar {
     --background: transparent;
     --color: #fff;
     padding-top: 8px;
+    // Adicionando padding extra para dispositivos com notch/camera
+    padding-top: max(8px, env(safe-area-inset-top, 0px) + 8px);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -50,7 +54,7 @@ ion-header {
   }
 }
 
-// App Branding Section (Seção com pipoca)
+// App Branding Section
 .app-branding {
   padding: 20px 16px;
   display: flex;
@@ -81,34 +85,144 @@ ion-header {
   }
 }
 
-// Categories
+// Categories Section - Novo Layout
 .categories-section {
-  padding: 20px 16px 24px;
+  padding: 16px;
   
-  .categories-scroll {
+  .categories-container {
     display: flex;
+    flex-direction: column;
     gap: 12px;
-    overflow-x: auto;
-    padding: 8px 0;
     
-    &::-webkit-scrollbar {
-      display: none;
+    .favorites-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 12px;
     }
     
-    ion-chip {
-      --background: rgba(255,255,255,0.1);
-      --color: #fff;
-      border: 1px solid rgba(255,255,255,0.2);
-      flex-shrink: 0;
-      transition: all 0.3s ease;
+    .genres-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+  }
+  
+  .category-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    min-height: 80px;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.12);
+    }
+    
+    &.active {
+      background: linear-gradient(135deg, #4ecdc4, #44a08d);
+      border-color: #4ecdc4;
+      color: #000;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(78, 205, 196, 0.3);
       
-      &.active {
-        --background: #4ecdc4;
-        --color: #000;
-        border-color: #4ecdc4;
-        transform: scale(1.05);
+      .category-icon ion-icon {
+        color: #000;
+        transform: scale(1.1);
+      }
+      
+      .category-label {
+        color: #000;
+        font-weight: 600;
+      }
+      
+      .category-count {
+        background: rgba(0,0,0,0.2);
+        color: #000;
       }
     }
+    
+    &.favorites-card {
+      background: linear-gradient(135deg, rgba(255,69,58,0.1), rgba(255,45,85,0.1));
+      border-color: rgba(255,69,58,0.3);
+      
+      &:not(.active) {
+        .category-icon ion-icon {
+          color: #ff4757;
+        }
+      }
+      
+      &.active {
+        background: linear-gradient(135deg, #ff4757, #ff3742);
+        border-color: #ff4757;
+        
+        .category-icon ion-icon {
+          color: #fff;
+        }
+        
+        .category-label, .category-count {
+          color: #fff;
+        }
+      }
+    }
+    
+    &.genre-card {
+      min-height: 70px;
+      padding: 12px 8px;
+      
+      .category-label {
+        font-size: 12px;
+      }
+      
+      .category-icon ion-icon {
+        font-size: 18px;
+      }
+    }
+  }
+  
+  .category-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    ion-icon {
+      font-size: 22px;
+      color: #4ecdc4;
+      transition: all 0.3s ease;
+    }
+  }
+  
+  .category-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    text-align: center;
+    line-height: 1.2;
+    transition: all 0.3s ease;
+  }
+  
+  .category-count {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(78, 205, 196, 0.2);
+    color: #4ecdc4;
+    border-radius: 10px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+    border: 1px solid rgba(78, 205, 196, 0.3);
   }
 }
 
@@ -116,11 +230,57 @@ ion-header {
 .movies-section {
   padding: 0 16px 100px;
   
-  .section-title {
-    font-size: 24px;
-    font-weight: 700;
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 20px;
-    color: #fff;
+    
+    .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+    }
+    
+    .section-meta {
+      font-size: 14px;
+      color: #999;
+      background: rgba(255,255,255,0.05);
+      padding: 4px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+  }
+}
+
+// Empty State
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  
+  .empty-icon {
+    margin-bottom: 20px;
+    
+    ion-icon {
+      font-size: 64px;
+      color: #333;
+    }
+  }
+  
+  h3 {
+    font-size: 20px;
+    color: #666;
+    margin: 0 0 12px;
+    font-weight: 600;
+  }
+  
+  p {
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 280px;
+    margin: 0 auto;
   }
 }
 
@@ -279,6 +439,8 @@ ion-tab-bar {
   --background: rgba(0,0,0,0.95);
   backdrop-filter: blur(20px);
   border-top: 1px solid rgba(255,255,255,0.1);
+  // Adicionando padding para safe area inferior
+  padding-bottom: env(safe-area-inset-bottom);
   
   ion-tab-button {
     --color: #666;
@@ -301,20 +463,33 @@ ion-tab-bar {
 
 // Responsividade
 @media (max-width: 768px) {
-  ion-header .search-item {
-    max-width: 100%;
-    --padding-start: 8px;
-    --border-radius: 8px;
-  }
-
-  .categories-scroll {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
+  .categories-section {
+    .categories-container {
+      .favorites-row {
+        grid-template-columns: 1fr 1fr;
+      }
+      
+      .genres-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+    }
     
-    ion-chip {
-      padding: 4px 8px;
-      font-size: 14px;
+    .category-card {
+      min-height: 70px;
+      padding: 12px 8px;
+      
+      &.genre-card {
+        min-height: 60px;
+        
+        .category-label {
+          font-size: 11px;
+        }
+        
+        .category-icon ion-icon {
+          font-size: 16px;
+        }
+      }
     }
   }
 
@@ -326,8 +501,19 @@ ion-tab-bar {
   .movies-section {
     padding: 0 12px 100px;
   }
-  
+}
+
+@media (max-width: 480px) {
   .categories-section {
-    padding: 16px 12px 20px;
+    .categories-container {
+      .favorites-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      
+      .genres-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
   }
 }

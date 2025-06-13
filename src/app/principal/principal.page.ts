@@ -20,15 +20,16 @@ export class PrincipalPage implements OnInit {
   filmesFiltrados: any[] = [];
   todoFilmes: any[] = [];
 
-  categorias = [
-    { nome: 'Populares', ativo: true },
-    { nome: 'Ação', ativo: false },
-    { nome: 'Comédia', ativo: false },
-    { nome: 'Drama', ativo: false },
-    { nome: 'Terror', ativo: false },
-    { nome: 'Ficção', ativo: false }
+  // Gêneros com ícones
+  generos = [
+    { nome: 'Ação', ativo: false, icone: 'flash' },
+    { nome: 'Comédia', ativo: false, icone: 'happy' },
+    { nome: 'Drama', ativo: false, icone: 'sad' },
+    { nome: 'Terror', ativo: false, icone: 'skull' },
+    { nome: 'Ficção', ativo: false, icone: 'planet' }
   ];
 
+  // Dados dos filmes
   filmes = [
     {
       id: 1,
@@ -93,6 +94,38 @@ export class PrincipalPage implements OnInit {
       rating: 8.8,
       favorito: false,
       categoria: 'Drama'
+    },
+    {
+      id: 9,
+      titulo: 'John Wick',
+      ano: 2014,
+      rating: 7.4,
+      favorito: false,
+      categoria: 'Ação'
+    },
+    {
+      id: 10,
+      titulo: 'Superbad',
+      ano: 2007,
+      rating: 7.6,
+      favorito: true,
+      categoria: 'Comédia'
+    },
+    {
+      id: 11,
+      titulo: 'Invocação do Mal',
+      ano: 2013,
+      rating: 7.5,
+      favorito: false,
+      categoria: 'Terror'
+    },
+    {
+      id: 12,
+      titulo: 'Se Beber, Não Case',
+      ano: 2009,
+      rating: 7.7,
+      favorito: true,
+      categoria: 'Comédia'
     }
   ];
 
@@ -108,16 +141,25 @@ export class PrincipalPage implements OnInit {
   abrirMenu() {
     console.log('Menu aberto');
     // Aqui você implementaria a abertura do menu lateral
+    // Exemplo: this.menuController.open();
   }
 
   abrirBusca() {
     this.buscaAtiva = !this.buscaAtiva;
     console.log('Busca ativada:', this.buscaAtiva);
-    if (this.buscaAtiva && window.innerWidth <= 768) {
+    
+    // Focar no input de busca após ativação
+    if (this.buscaAtiva) {
       setTimeout(() => {
-        const searchBar = document.querySelector('.search-item');
-        if (searchBar) searchBar.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
+        const inputElement = document.querySelector('.search-item ion-input') as HTMLIonInputElement;
+        if (inputElement) {
+          inputElement.setFocus();
+        }
+      }, 200);
+    } else {
+      // Limpar busca ao fechar
+      this.termoBusca = '';
+      this.filtrarPorCategoria(this.categoriaAtual);
     }
   }
 
@@ -143,11 +185,17 @@ export class PrincipalPage implements OnInit {
   }
 
   selecionarCategoria(categoria: any) {
-    // Desativar todas as categorias
-    this.categorias.forEach(cat => cat.ativo = false);
+    // Desativar todas as categorias de gênero
+    this.generos.forEach(gen => gen.ativo = false);
     
-    // Ativar a categoria selecionada
-    categoria.ativo = true;
+    // Ativar a categoria selecionada se for um gênero
+    if (categoria.nome !== 'Favoritos' && categoria.nome !== 'Populares') {
+      const genero = this.generos.find(g => g.nome === categoria.nome);
+      if (genero) {
+        genero.ativo = true;
+      }
+    }
+    
     this.categoriaAtual = categoria.nome;
     
     // Limpar busca quando trocar categoria
@@ -161,14 +209,25 @@ export class PrincipalPage implements OnInit {
   }
 
   filtrarPorCategoria(categoria: string) {
-    if (categoria === 'Populares') {
-      this.filmesFiltrados = [...this.todoFilmes];
-    } else {
-      this.filmesFiltrados = this.todoFilmes.filter(filme => 
-        filme.categoria === categoria
-      );
+    switch (categoria) {
+      case 'Populares':
+        this.filmesFiltrados = [...this.todoFilmes];
+        break;
+      case 'Favoritos':
+        this.filmesFiltrados = this.todoFilmes.filter(filme => filme.favorito);
+        break;
+      default:
+        this.filmesFiltrados = this.todoFilmes.filter(filme => 
+          filme.categoria === categoria
+        );
+        break;
     }
-    console.log('Filmes filtrados:', this.filmesFiltrados);
+    console.log(`Categoria ${categoria}: ${this.filmesFiltrados.length} filmes`);
+  }
+
+  // Método para contar favoritos
+  getFavoritosCount(): number {
+    return this.todoFilmes.filter(filme => filme.favorito).length;
   }
 
   carregarFilmesPorCategoria(categoria: string) {
@@ -176,11 +235,7 @@ export class PrincipalPage implements OnInit {
     
     // Simular carregamento
     setTimeout(() => {
-      if (categoria === 'Populares') {
-        console.log('Carregando filmes populares');
-      } else {
-        console.log('Filtrando por categoria:', categoria);
-      }
+      console.log('Carregando categoria:', categoria);
       this.carregando = false;
     }, 1000);
   }
@@ -191,15 +246,44 @@ export class PrincipalPage implements OnInit {
     filme.favorito = !filme.favorito;
     console.log('Filme favoritado:', filme.titulo, filme.favorito);
     
+    // Se estamos na aba de favoritos, atualizar a lista
+    if (this.categoriaAtual === 'Favoritos') {
+      this.filtrarPorCategoria('Favoritos');
+    }
+    
     if (filme.favorito) {
       console.log('❤️ Adicionado aos favoritos:', filme.titulo);
+      this.mostrarFeedbackFavorito(true);
     } else {
       console.log('💔 Removido dos favoritos:', filme.titulo);
+      this.mostrarFeedbackFavorito(false);
     }
+  }
+
+  mostrarFeedbackFavorito(adicionado: boolean) {
+    // Feedback visual simples
+    console.log(adicionado ? '✨ Filme adicionado aos favoritos!' : '💔 Filme removido dos favoritos');
+    
+    // Aqui você pode adicionar toast, alert ou animação mais elaborada
+    // Exemplo com toast (precisa importar ToastController):
+    // const toast = await this.toastController.create({
+    //   message: adicionado ? 'Adicionado aos favoritos!' : 'Removido dos favoritos',
+    //   duration: 2000,
+    //   position: 'bottom'
+    // });
+    // toast.present();
   }
 
   abrirDetalhes(filmeId: number) {
     console.log('Abrindo detalhes do filme:', filmeId);
+    
+    // Buscar o filme específico
+    const filme = this.todoFilmes.find(f => f.id === filmeId);
+    if (filme) {
+      console.log('Filme selecionado:', filme.titulo);
+    }
+    
+    // Navegar para página de detalhes
     this.router.navigate(['/detalhes', filmeId]).catch(err => {
       console.log('Erro na navegação - Rota /detalhes não configurada ainda:', err);
       console.log('💡 Dica: Configure a rota /detalhes no app-routing.module.ts');
@@ -207,16 +291,74 @@ export class PrincipalPage implements OnInit {
   }
 
   irParaFavoritos() {
-    console.log('Navegando para Favoritos');
-    this.mostrarFavoritos();
+    console.log('Navegando para seção Favoritos');
+    // Selecionar automaticamente a categoria Favoritos
+    this.selecionarCategoria({ nome: 'Favoritos', ativo: false });
   }
 
   irParaPerfil() {
     console.log('Navegando para Perfil');
+    this.router.navigate(['/perfil']).catch(err => {
+      console.log('Erro na navegação - Rota /perfil não configurada ainda:', err);
+      console.log('💡 Dica: Configure a rota /perfil no app-routing.module.ts');
+    });
   }
 
-  mostrarFavoritos() {
-    const favoritos = this.filmes.filter(filme => filme.favorito);
-    console.log('Filmes favoritos:', favoritos);
+  // Métodos utilitários adicionais
+
+  /**
+   * Método para ordenar filmes por rating
+   */
+  ordenarPorRating() {
+    this.filmesFiltrados.sort((a, b) => b.rating - a.rating);
+    console.log('Filmes ordenados por rating');
+  }
+
+  /**
+   * Método para ordenar filmes por ano
+   */
+  ordenarPorAno() {
+    this.filmesFiltrados.sort((a, b) => b.ano - a.ano);
+    console.log('Filmes ordenados por ano');
+  }
+
+  /**
+   * Método para obter estatísticas
+   */
+  obterEstatisticas() {
+    const stats = {
+      totalFilmes: this.todoFilmes.length,
+      totalFavoritos: this.getFavoritosCount(),
+      porcentagemFavoritos: Math.round((this.getFavoritosCount() / this.todoFilmes.length) * 100),
+      generoMaisFavorito: this.obterGeneroMaisFavorito(),
+      ratingMedio: this.calcularRatingMedio()
+    };
+    
+    console.log('📊 Estatísticas dos filmes:', stats);
+    return stats;
+  }
+
+  /**
+   * Método para encontrar o gênero com mais favoritos
+   */
+  private obterGeneroMaisFavorito(): string {
+    const favoritos = this.todoFilmes.filter(f => f.favorito);
+    const generoCount: { [key: string]: number } = {};
+    
+    favoritos.forEach(filme => {
+      generoCount[filme.categoria] = (generoCount[filme.categoria] || 0) + 1;
+    });
+    
+    return Object.keys(generoCount).reduce((a, b) => 
+      generoCount[a] > generoCount[b] ? a : b, 'Nenhum'
+    );
+  }
+
+  /**
+   * Método para calcular rating médio
+   */
+  private calcularRatingMedio(): number {
+    const soma = this.todoFilmes.reduce((acc, filme) => acc + filme.rating, 0);
+    return Math.round((soma / this.todoFilmes.length) * 10) / 10;
   }
 }
