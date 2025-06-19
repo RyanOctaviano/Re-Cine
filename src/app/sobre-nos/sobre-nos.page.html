@@ -1,0 +1,115 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sobre Nós</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Hero Section with Text -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Re-Cine</h1>
+      
+      <div class="hero-text">
+        <p>
+          Já se perguntou quantos filmes incríveis você 
+          deixou passar porque nunca te indicaram? 
+          Quantas histórias poderiam ter te tocado, feito rir, 
+          pensar ou até mudar de perspectiva, se tivessem 
+          chegado até você na hora certa?
+        </p>
+        
+        <p>
+          O Re-Cine nasceu desse sentimento — da 
+          vontade de compartilhar experiências, debates e 
+          emoções que só o cinema é capaz de despertar. 
+          Mais do que um simples aplicativo de avaliações, 
+          o Re-Cine é um ponto de encontro para quem 
+          vive o cinema como arte, passatempo, refúgio ou 
+          paixão.
+        </p>
+        
+        <p>
+          Aqui, cada filme conta uma história, mas cada 
+          pessoa também. Suas resenhas, suas notas, suas 
+          recomendações ajudam a construir um espaço 
+          vivo, onde você não apenas consome cinema — 
+          você participa dele.
+        </p>
+        
+        <p>
+          Explore novos títulos, redescubra clássicos, crie 
+          sua própria curadoria e mergulhe em uma 
+          comunidade feita por e para quem sente algo 
+          especial quando as luzes se apagam e a tela 
+          acende.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Section -->
+  <div class="team-section">
+    <h2 class="section-title">Nossa Equipe</h2>
+    
+    <div class="team-grid">
+      <div class="team-member" *ngFor="let member of teamMembers; let i = index">
+        <div class="member-image" (click)="selectImage(i)">
+          <img *ngIf="member.image" [src]="member.image" [alt]="member.name">
+          <div *ngIf="!member.image" class="image-placeholder">
+            <ion-icon name="person-add-outline"></ion-icon>
+            <span>Adicionar Foto</span>
+          </div>
+        </div>
+        
+        <div class="member-info">
+          <h3 class="member-name" 
+              contenteditable="true" 
+              (blur)="updateMemberName(i, $event)"
+              [innerHTML]="member.name">
+          </h3>
+          
+          <div class="member-description" 
+               contenteditable="true" 
+               (blur)="updateMemberDescription(i, $event)"
+               [innerHTML]="member.description">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Photo Section -->
+  <div class="team-photo-section">
+    <h2 class="section-title">Nosso Time</h2>
+    
+    <div class="team-photo-container" (click)="selectTeamPhoto()">
+      <img *ngIf="teamPhoto" [src]="teamPhoto" alt="Foto da equipe">
+      <div *ngIf="!teamPhoto" class="team-photo-placeholder">
+        <ion-icon name="camera-outline"></ion-icon>
+        <span>Adicionar Foto da Equipe</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Developer Credit -->
+  <div class="developer-section">
+    <p class="developer-text">
+      <strong>DESENVOLVIDO POR</strong>
+      <span class="highlight">RYAN PAULÃO</span> — UI/UX & CONTEÚDO<br>
+      <span class="highlight">CAUÊ ARRUDA</span> — BACK-END & DESIGN<br>
+      <span class="highlight">BRUNO FREITAS</span> — CINEMATOGRAFIA & CURADORIA<br>
+      <span class="highlight">VINI CAMPOS</span> — EXPERIÊNCIA & PESQUISA
+    </p>
+  </div>
+
+  <!-- Hidden file input -->
+  <input #fileInput 
+         type="file" 
+         accept="image/*" 
+         style="display: none" 
+         (change)="onFileSelected($event)">
+</ion-content>

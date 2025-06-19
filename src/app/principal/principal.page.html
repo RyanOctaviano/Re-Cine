@@ -19,6 +19,21 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+  
+  <!-- Nova barra de navegação adicional -->
+  <ion-toolbar class="secondary-toolbar">
+    <div class="navigation-buttons">
+      <ion-button fill="clear" class="nav-button" (click)="irParaSobreNos()">
+        <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+        Sobre Nós
+      </ion-button>
+      
+      <ion-button fill="clear" class="nav-button" (click)="irParaPerfil()">
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        Perfil
+      </ion-button>
+    </div>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">

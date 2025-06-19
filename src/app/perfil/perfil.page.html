@@ -1,0 +1,61 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Perfil</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="profile-container">
+    <!-- Avatar Section -->
+    <div class="profile-avatar-section">
+      <div class="avatar-container">
+        <div class="avatar-circle">
+          <ion-icon name="person" class="avatar-icon"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile Info Section -->
+    <div class="profile-info-section">
+      <div class="profile-card">
+        <div class="profile-field">
+          <div class="field-label">
+            <ion-icon name="person-outline"></ion-icon>
+            <span>Nome</span>
+          </div>
+          <div class="field-value">{{ usuario.nome || 'Não informado' }}</div>
+        </div>
+
+        <div class="profile-field">
+          <div class="field-label">
+            <ion-icon name="person-outline"></ion-icon>
+            <span>Sobrenome</span>
+          </div>
+          <div class="field-value">{{ usuario.sobrenome || 'Não informado' }}</div>
+        </div>
+
+        <div class="profile-field">
+          <div class="field-label">
+            <ion-icon name="mail-outline"></ion-icon>
+            <span>Email</span>
+          </div>
+          <div class="field-value">{{ usuario.email || 'Não informado' }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions Section -->
+    <div class="profile-actions-section">
+      <ion-button 
+        expand="block" 
+        class="logout-button"
+        (click)="confirmarSaida()">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        Sair
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

@@ -140,8 +140,7 @@ export class PrincipalPage implements OnInit {
 
   abrirMenu() {
     console.log('Menu aberto');
-    // Aqui você implementaria a abertura do menu lateral
-    // Exemplo: this.menuController.open();
+    // Implementar abertura do menu lateral se necessário
   }
 
   abrirBusca() {
@@ -176,12 +175,6 @@ export class PrincipalPage implements OnInit {
         filme.titulo.toLowerCase().includes(termo)
       );
     }
-  }
-
-  limparBusca() {
-    this.termoBusca = ''; // Limpa o texto
-    this.filtrarPorCategoria(this.categoriaAtual); // Reseta a lista
-    console.log('Busca limpa');
   }
 
   selecionarCategoria(categoria: any) {
@@ -230,16 +223,6 @@ export class PrincipalPage implements OnInit {
     return this.todoFilmes.filter(filme => filme.favorito).length;
   }
 
-  carregarFilmesPorCategoria(categoria: string) {
-    this.carregando = true;
-    
-    // Simular carregamento
-    setTimeout(() => {
-      console.log('Carregando categoria:', categoria);
-      this.carregando = false;
-    }, 1000);
-  }
-
   toggleFavorito(filme: any, event: Event) {
     event.stopPropagation();
     
@@ -253,25 +236,9 @@ export class PrincipalPage implements OnInit {
     
     if (filme.favorito) {
       console.log('❤️ Adicionado aos favoritos:', filme.titulo);
-      this.mostrarFeedbackFavorito(true);
     } else {
       console.log('💔 Removido dos favoritos:', filme.titulo);
-      this.mostrarFeedbackFavorito(false);
     }
-  }
-
-  mostrarFeedbackFavorito(adicionado: boolean) {
-    // Feedback visual simples
-    console.log(adicionado ? '✨ Filme adicionado aos favoritos!' : '💔 Filme removido dos favoritos');
-    
-    // Aqui você pode adicionar toast, alert ou animação mais elaborada
-    // Exemplo com toast (precisa importar ToastController):
-    // const toast = await this.toastController.create({
-    //   message: adicionado ? 'Adicionado aos favoritos!' : 'Removido dos favoritos',
-    //   duration: 2000,
-    //   position: 'bottom'
-    // });
-    // toast.present();
   }
 
   abrirDetalhes(filmeId: number) {
@@ -304,27 +271,26 @@ export class PrincipalPage implements OnInit {
     });
   }
 
+  irParaSobreNos() {
+    console.log('Navegando para Sobre Nós');
+    this.router.navigate(['/sobre-nos']).catch(err => {
+      console.log('Erro na navegação - Rota /sobre-nos não configurada ainda:', err);
+      console.log('💡 Dica: Configure a rota /sobre-nos no app-routing.module.ts');
+    });
+  }
+
   // Métodos utilitários adicionais
 
-  /**
-   * Método para ordenar filmes por rating
-   */
   ordenarPorRating() {
     this.filmesFiltrados.sort((a, b) => b.rating - a.rating);
     console.log('Filmes ordenados por rating');
   }
 
-  /**
-   * Método para ordenar filmes por ano
-   */
   ordenarPorAno() {
     this.filmesFiltrados.sort((a, b) => b.ano - a.ano);
     console.log('Filmes ordenados por ano');
   }
 
-  /**
-   * Método para obter estatísticas
-   */
   obterEstatisticas() {
     const stats = {
       totalFilmes: this.todoFilmes.length,
@@ -338,9 +304,6 @@ export class PrincipalPage implements OnInit {
     return stats;
   }
 
-  /**
-   * Método para encontrar o gênero com mais favoritos
-   */
   private obterGeneroMaisFavorito(): string {
     const favoritos = this.todoFilmes.filter(f => f.favorito);
     const generoCount: { [key: string]: number } = {};
@@ -354,9 +317,6 @@ export class PrincipalPage implements OnInit {
     );
   }
 
-  /**
-   * Método para calcular rating médio
-   */
   private calcularRatingMedio(): number {
     const soma = this.todoFilmes.reduce((acc, filme) => acc + filme.rating, 0);
     return Math.round((soma / this.todoFilmes.length) * 10) / 10;

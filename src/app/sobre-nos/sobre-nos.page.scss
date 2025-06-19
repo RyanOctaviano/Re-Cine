@@ -1,0 +1,462 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+ion-content {
+  --background: #0a0a0a;
+  background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
+  color: #fff;
+}
+
+// Header
+ion-header {
+  --background: transparent;
+  background: rgba(0,0,0,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  
+  ion-toolbar {
+    --background: transparent;
+    --color: #fff;
+    
+    ion-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+    }
+    
+    ion-back-button {
+      --color: #4ecdc4;
+      --icon-font-size: 20px;
+      --padding-start: 8px;
+      --padding-end: 8px;
+    }
+  }
+}
+
+// Hero Section
+.hero-section {
+  padding: 40px 20px 60px;
+  background: linear-gradient(180deg, rgba(78, 205, 196, 0.05) 0%, transparent 100%);
+  
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .hero-title {
+    font-size: 48px;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 40px;
+    letter-spacing: -1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    
+    &::before {
+      content: '🍿';
+      font-size: 40px;
+    }
+  }
+  
+  .hero-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #e0e0e0;
+    
+    p {
+      margin: 0 0 24px;
+      padding: 0 20px;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+// Team Section
+.team-section {
+  padding: 40px 20px;
+  
+  .section-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    margin: 0 0 40px;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #4ecdc4, #44a08d);
+      border-radius: 2px;
+    }
+  }
+  
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .team-member {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      border-color: rgba(78, 205, 196, 0.3);
+      background: rgba(255,255,255,0.08);
+    }
+    
+    .member-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 3px solid rgba(78, 205, 196, 0.3);
+      
+      &:hover {
+        border-color: #4ecdc4;
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(78, 205, 196, 0.2);
+      }
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      
+      .image-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255,255,255,0.05);
+        color: #999;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          color: #4ecdc4;
+          background: rgba(78, 205, 196, 0.1);
+        }
+        
+        ion-icon {
+          font-size: 32px;
+          margin-bottom: 8px;
+        }
+        
+        span {
+          font-size: 12px;
+          font-weight: 500;
+          text-align: center;
+        }
+      }
+    }
+    
+    .member-info {
+      .member-name {
+        font-size: 20px;
+        font-weight: 600;
+        color: #fff;
+        margin: 0 0 12px;
+        cursor: text;
+        padding: 4px 8px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        
+        &:hover, &:focus {
+          background: rgba(255,255,255,0.05);
+          outline: none;
+        }
+        
+        &:empty::before {
+          content: 'Nome do membro';
+          color: #666;
+          font-style: italic;
+        }
+      }
+      
+      .member-description {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #ccc;
+        cursor: text;
+        padding: 8px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        min-height: 60px;
+        
+        &:hover, &:focus {
+          background: rgba(255,255,255,0.05);
+          outline: none;
+        }
+        
+        &:empty::before {
+          content: 'Adicione uma descrição sobre este membro da equipe...';
+          color: #666;
+          font-style: italic;
+        }
+      }
+    }
+  }
+}
+
+// Team Photo Section
+.team-photo-section {
+  padding: 40px 20px;
+  
+  .section-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    margin: 0 0 40px;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #4ecdc4, #44a08d);
+      border-radius: 2px;
+    }
+  }
+  
+  .team-photo-container {
+    max-width: 600px;
+    margin: 0 auto;
+    aspect-ratio: 16/10;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      border-color: rgba(78, 205, 196, 0.4);
+    }
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .team-photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        color: #4ecdc4;
+        background: rgba(78, 205, 196, 0.05);
+      }
+      
+      ion-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+      }
+      
+      span {
+        font-size: 16px;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+// Developer Section
+.developer-section {
+  padding: 50px 20px 30px;
+  background: rgba(0,0,0,0.3);
+  margin-top: 40px;
+  
+  .developer-text {
+    text-align: center;
+    font-size: 13px;
+    line-height: 2;
+    color: #999;
+    max-width: 450px;
+    margin: 0 auto;
+    
+    strong {
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 1px;
+      display: block;
+      margin-bottom: 8px;
+    }
+    
+    .highlight {
+      color: #4ecdc4;
+      font-weight: 600;
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 30px 16px 40px;
+    
+    .hero-title {
+      font-size: 36px;
+      margin-bottom: 30px;
+    }
+    
+    .hero-text {
+      font-size: 15px;
+      
+      p {
+        padding: 0 12px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+  
+  .team-section {
+    padding: 30px 16px;
+    
+    .section-title {
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+    
+    .team-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    
+    .team-member {
+      padding: 20px;
+      
+      .member-image {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 16px;
+      }
+      
+      .member-info {
+        .member-name {
+          font-size: 18px;
+        }
+        
+        .member-description {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+  
+  .team-photo-section {
+    padding: 30px 16px;
+    
+    .section-title {
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+    
+    .team-photo-container {
+      aspect-ratio: 4/3;
+    }
+  }
+  
+  .developer-section {
+    padding: 35px 16px 25px;
+    
+    .developer-text {
+      font-size: 12px;
+      line-height: 1.9;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    .hero-title {
+      font-size: 32px;
+    }
+    
+    .hero-text {
+      font-size: 14px;
+      
+      p {
+        padding: 0 8px;
+      }
+    }
+  }
+  
+  .team-section {
+    .team-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .team-member {
+      .member-image {
+        width: 80px;
+        height: 80px;
+        
+        .image-placeholder {
+          ion-icon {
+            font-size: 24px;
+          }
+          
+          span {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+  
+  .team-photo-container {
+    .team-photo-placeholder {
+      ion-icon {
+        font-size: 36px;
+      }
+      
+      span {
+        font-size: 14px;
+      }
+    }
+  }
+}
